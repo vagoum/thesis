@@ -1,0 +1,158 @@
+\ProvidesPackage{notation}
+ 
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{verbatim}
+
+\usepackage{etoolbox}
+
+\usepackage{semantic}
+
+\usepackage{mathpartir}
+
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Obligatory for PACMPL
+\citestyle{acmauthoryear} 
+
+% If true, we try and include the agda style file and generated latex from
+% the 'latex' dir. If false we just include the original lagda files and
+% redefine 'code' to be a verbatim environment, which is nice for development.
+\newtoggle{lagda}
+\togglefalse{lagda}
+% This is a bit of a hack to make it easy to toggle on including
+% the generated literate Agda latex if it's been built:
+% - Run agda --latex over all the files
+% - echo '\toggletrue{lagda}' > agdaswitch.tex
+% - Built the latex
+\InputIfFileExists{agdaswitch}{}{}
+
+\iftoggle{lagda}{
+  % agda.sty wants to use the deprecated utf8x option, which
+  % many publishers don't like. So we do it ourselves
+
+  \usepackage[noinputencodingsetup]{agda}
+}{
+  \newenvironment{code}
+      {\verbatim}
+      {\endverbatim}
+}
+
+\newcommand{\inputlagda}[1]{\iftoggle{lagda}{\input{#1.tex}}{\input{#1.lagda}}}
+
+% TODO: non-awful names
+\newcommand{\SF}{\ensuremath{\textrm{System F}}}
+\newcommand{\FOM}{\ensuremath{\textrm{System}\ \textrm{F}_\omega}}
+\newcommand{\FOMF}{\ensuremath{\textrm{System}\ \textrm{F}_{\omega}^\mu}}
+\newcommand{\FIR}{\ensuremath{\textrm{FIR}}}
+
+\newcommand{\subst}[3]{[#1 \mapsto #2]#3}
+\newcommand{\provesok}{|-_{\textsf{ok}}}
+
+
+% fixpoints
+\DeclareMathOperator{\fixo}{\texttt{fix}}
+% metalanguage version for functions
+\DeclareMathOperator{\fixml}{\textsf{fix}}
+\DeclareMathOperator{\Fix0}{Fix_0}
+\DeclareMathOperator{\fix2}{fix_2}
+\DeclareMathOperator{\fixBy}{\textsf{fixBy}}
+
+% fir syntax bits
+\newcommand{\typeArrow}{\rightarrow}
+\newcommand{\kindArrow}{\Rightarrow}
+\DeclareMathOperator{\ifix}{\texttt{ifix}}
+\DeclareMathOperator{\wrap}{\texttt{wrap}}
+\DeclareMathOperator{\unwrap}{\texttt{unwrap}}
+\DeclareMathOperator{\Type}{\ast}
+\DeclareMathOperator{\tlet}{\texttt{let}}
+\DeclareMathOperator{\tin}{\texttt{in}}
+\DeclareMathOperator{\rec}{\texttt{rec}}
+\DeclareMathOperator{\with}{\texttt{with}}
+
+% tuples
+\DeclareMathOperator{\curry}{\textsf{curry}}
+\DeclareMathOperator{\uncurry}{\textsf{uncurry}}
+
+% maybe
+\DeclareMathOperator{\Maybe}{\textsf{Maybe}}
+\DeclareMathOperator{\Just}{\textsf{Just}}
+\DeclareMathOperator{\Nothing}{\textsf{Nothing}}
+\DeclareMathOperator{\Match}{\textsf{match}}
+
+% tree forest
+\DeclareMathOperator{\Tree}{\textsf{Tree}}
+\DeclareMathOperator{\Forest}{\textsf{Forest}}
+\DeclareMathOperator{\Node}{\textsf{Node}}
+
+% misc
+\DeclareMathOperator{\Int}{\textsf{Int}}
+\DeclareMathOperator{\Bool}{\textsf{Bool}}
+\DeclareMathOperator{\FFalse}{\textsf{False}}
+\DeclareMathOperator{\TTrue}{\textsf{True}}
+\DeclareMathOperator{\NNat}{\textsf{Nat}}
+\DeclareMathOperator{\ZZero}{\textsf{Z}}
+\DeclareMathOperator{\SSuc}{\textsf{S}}
+\DeclareMathOperator{\List}{\textsf{List}}
+% avoid clashing with agda.sty
+\DeclareMathOperator{\NNil}{\textsf{Nil}}
+\DeclareMathOperator{\CCons}{\textsf{Cons}}
+\DeclareMathOperator{\Unit}{\textsf{Unit}}
+\DeclareMathOperator{\Unitval}{\textsf{()}}
+\DeclareMathOperator{\by}{\textsf{by}}
+\DeclareMathOperator{\sel}{\textsf{sel}}
+
+\newcommand{\compileterm}{\mathbb{C}_{\mathrm{term}}}
+\newcommand{\compiletermrec}{\mathbb{C}_{\mathrm{termrec}}}
+\newcommand{\compiletype}{\mathbb{C}_{\mathrm{type}}}
+\newcommand{\compiledata}{\mathbb{C}_{\mathrm{data}}}
+\newcommand{\compiledatarec}{\mathbb{C}_{\mathrm{datarec}}}
+
+\newcommand{\seq}[1]{\overline{#1}}
+\newcommand{\length}[1]{\lvert #1 \rvert}
+\newcommand{\defeq}{:=}
+
+\newcommand{\todompj}[1]{\todo[inline,color=yellow!40,author=Michael]{#1}}
+\newcommand{\todovg}[1]{\todo[inline,color=blue!40,author=Vasilis]{#1}}
+\newcommand{\todork}[1]{\todo[inline,color=orange!40,author=Roman]{#1}}
+
+\newcommand{\fomfDiff}[1]{\text{\colorbox{lightgray}{\(#1\)}}}
+\newcommand{\firDiff}[1]{\text{\colorbox{yellow}{\(#1\)}}}
+
+\DeclareMathOperator{\Data}{\texttt{data}}
+\newcommand{\datatype}[4]{\Data{} #1 ~ #2 = #4 ~ \with ~ #3}
+
+\newcommand{\branchTy}[2]{\mathsf{branchTy}(#1, #2)}
+\newcommand{\dataDecl}[1]{\mathsf{dataDec}(#1)}
+
+\newcommand{\dataKind}[1]{\mathsf{dataKind}(#1)}
+\newcommand{\scottTy}[1]{\mathsf{dataTy}(#1)}
+\newcommand{\constr}[2]{\mathsf{constr}(#1, #2)}
+\newcommand{\constrs}[1]{\mathsf{constrs}(#1)}
+\newcommand{\constrTy}[2]{\mathsf{constrTy}(#1, #2)}
+\newcommand{\match}[1]{\mathsf{match}(#1)}
+\newcommand{\matchTy}[1]{\mathsf{matchTy}(#1)}
+\newcommand{\unveil}[2]{\mathsf{unveil}(#1, #2)}
+
+\newcommand{\dataBind}[1]{\mathsf{dataBind}(#1)}
+\newcommand{\matchBind}[1]{\mathsf{matchBind}(#1)}
+\newcommand{\constrBind}[2]{\mathsf{constrBind}(#1, #2)}
+\newcommand{\constrBinds}[1]{\mathsf{constrBinds}(#1)}
+\newcommand{\binds}[1]{\mathsf{binds}(#1)}
+
+\newcommand{\tagKind}[1]{\mathsf{tagKind}(#1)}
+\newcommand{\dtTag}[2]{\mathsf{tag}(#1, #2)}
+\newcommand{\dtInst}[3]{\mathsf{inst}(#1, #2, #3)}
+\newcommand{\dtFamily}[1]{\mathsf{family}(#1)}
+\newcommand{\dtInstFinal}[2]{\mathsf{instFamily}(#1, #2)}
+
+\newcommand{\constrRec}[3]{\mathsf{constr}^{\rec}(#1, #2, #3)}
+\newcommand{\constrsRec}[2]{\mathsf{constrs}^{\rec}(#1, #2)}
+\newcommand{\matchRec}[2]{\mathsf{match}^{\rec}(#1, #2)}
+\newcommand{\unveilRec}[2]{\mathsf{unveil}^{\rec}(#1, #2)}

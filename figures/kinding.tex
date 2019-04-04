@@ -1,0 +1,20 @@
+\begin{figure}[!ht]
+    \centering
+    \begin{minipage}[t]{15cm}
+    \centering
+    \begin{displaymath}
+    \begin{array}{ll}
+    \inference[K-TVar]{X::K \in \Gamma}{\Gamma \vdash X :: K} &
+    \inference[K-Abs]{\Gamma, X::K_1 \vdash T :: K_2}{\Gamma \vdash (\lambda X::K_1.T) :: K_1 \kindArrow K_2} \\
+    \\
+    \inference[K-App]{\Gamma \vdash T_1 :: K_1 \kindArrow K_2 \\ \Gamma \vdash T_2 :: K_1}{\Gamma \vdash (T_1 ~ T_2) :: K_2} &
+    \inference[K-Arrow]{\Gamma \vdash T_1 :: \Type & \Gamma \vdash T_2 :: \Type}{\Gamma \vdash (T_1 \rightarrow T_2) :: \Type} \\
+    \\
+    \inference[K-All]{\Gamma, X::K \vdash T :: \Type}{\Gamma \vdash (\forall X::K.T) :: \Type} &
+    \fomfDiff{\inference[K-Ifix]{\Gamma \vdash T:: K \\ \Gamma \vdash F :: (K \kindArrow \Type) \kindArrow (K \kindArrow \Type)} {\Gamma \vdash (\ifix ~ F ~ T) :: \Type} } 
+    \end{array}
+    \end{displaymath}
+    \end{minipage}
+    \caption{Kinding της \FIR}
+    \label{fig:fir_kinding}
+\end{figure}
