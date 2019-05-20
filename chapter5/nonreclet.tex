@@ -6,6 +6,6 @@ desugaring του $\tlet$ σε εφαρμογή συναρτήσεων. Μετα
   \begin{displaymath}
   \begin{array}{lll}
   \compileterm(\tlet x : t = b \tin v) &=& (\lambda (x : t) . v)\ b\\
-							 \compiletype(\tlet t :: k = b \tin v) &=& (\Lambda (t :: k) . v)\ \{b\}
-							 \end{array}
-							 \end{displaymath}
+  \compiletype(\tlet t :: k = b \tin v) &=& (\Lambda (t :: k) . v)\ \{b\}
+  \end{array}
+  \end{displaymath}
