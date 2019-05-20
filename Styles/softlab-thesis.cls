@@ -47,7 +47,7 @@
 \usepackage{mathpazo}
 \usepackage[mathpazo]{flexisym}
 \usepackage{todonotes}
-%\usepackage{hyperref}
+\usepackage{hyperref}
 \usepackage{cleveref}
 
 
