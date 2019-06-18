@@ -58,7 +58,7 @@
 \newcommand{\SF}{\ensuremath{\textrm{System}\ F}}
 \newcommand{\FOM}{\ensuremath{\textrm{System}\ F_\omega}}
 \newcommand{\FOMF}{\ensuremath{\textrm{System}\ F_{\omega}^\mu}}
-\newcommand{\FIR}{\ensuremath{\textrm{FIR}}}
+\newcommand{\FIR}{\ensuremath{\textrm{PIR}}}
 
 
 \newcommand{\subst}[3]{[#1 \mapsto #2]#3}
