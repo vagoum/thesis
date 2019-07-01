@@ -12,7 +12,6 @@
       τύπο του constructor του συγκεκριμένου branch, δηλαδή τον τύπο που
       παίρνει τα ορίσματα του αντίστοιχου branch, και επιστρέφει έναν τύπο
       εξόδου $R$.
-
   \begin{align*} \branchTy{\Nothing ()}{R} &= R\\ \branchTy{\Just A}{R} &= A
   \rightarrow R \end{align*}
 
@@ -21,14 +20,13 @@
   $$\dataKind{\Maybe} = \Type \kindArrow \Type$$ \item $\scottTy{d}$ υπολογίζει
     τον Scott τύπο του datatype. Δεσμεύει τα ονόματα των παραμέτρων και
     υλοποιεί το ταίριασμα προτύπων χρησιμοποιώντας τους τύπους των branch.
-
   $$\scottTy{d} = \lambda A . \forall R . R \rightarrow (A \rightarrow R)
 \rightarrow R$$ \item $\constrTy{c}{T}$ υπολογίζει τον τύπο ενός constructor
   $d$.  \begin{align*} \constrTy{\Nothing ()}{\Maybe} &= \forall A . \Maybe A\\
   \constrTy{\Just A}{\Maybe} &= \forall A . A \rightarrow \Maybe A \end{align*}
 \item $\constr{d}{c}$ υπολογίζει τον constructor στο επίπεδο των όρων. Ο τύπος
   $R$ χρησιμοποιείται στη θέση του αφηρημένου τύπου δεδομένων, αφού έχουν
-  ``δεσμευτεί" μέσω type abstraction τα ορίσματά του. Στη συνέχεια κατασκευάζει
+  ``δεσμευτεί'' μέσω type abstraction τα ορίσματά του. Στη συνέχεια κατασκευάζει
   την συνάρτηση ταιριάσματος που παίρνει όλες τις επιλογές και εφαρμόζει το
   $i$-οστό branch στα κατάλληλα στα ορίσματα.  \begin{align*}
     \constr{d}{\Nothing ()} &= \Lambda A . \Lambda R . \lambda (b_1 : R) (b_2 :
@@ -42,7 +40,7 @@
         ουσιαστικά είναι η ταυτοτική συνάρτηση στον Scott τύπο.  $$\match{d} =
       \Lambda A . \lambda (v : \Maybe A) . v$$ \item $\unveil{d}{t}$
         αντικαθιστά τον αφηρημένο τύπο δεδομένων μέσα σε έναν όρο, με τον
-        ``ωμό" Scott τύπο.  $$\unveil{d}{t} = \subst{\Maybe}{\lambda A .
+        ``ωμό'' Scott τύπο.  $$\unveil{d}{t} = \subst{\Maybe}{\lambda A .
         \forall R . R \rightarrow (A \rightarrow R) \rightarrow R}{t}$$
 \end{itemize}
 
@@ -110,5 +108,5 @@ constructors και της συνάρτησης ταιριάσματος.
       τύπο στο σώμα του $tlet$, αλλιώς η ερφαμοργή του $\Match$ δεν θα
       συνοδεύεται από τον σωστό τύπο.  \item O Scott τύπους παράγεται στον
       ορισμό $\Just$.  \item Η συνάρτηση ταιριάσματος $\Match$ μετατρέπει τον
-        αφηρημένο τύπο στην ``ωμή " Scott εκδοχή του. Υπολογιστικά είναι απλά η
+        αφηρημένο τύπο στην ``ωμή'' Scott εκδοχή του. Υπολογιστικά είναι απλά η
 ταυτοτική συνάρτηση.  \end{itemize}
